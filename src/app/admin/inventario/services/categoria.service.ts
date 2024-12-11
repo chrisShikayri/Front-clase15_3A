@@ -8,19 +8,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoriaService {
 
-  constructor(@Inject('CATEGORIA_REPOSITORY') private categoriaRepository:Repository<Categoria>){}
-
-  async create(createCategoriaDto: createCategoriaDto) {
-    const categoria = new Categoria()
-    categoria.nombre=createCategoriaDto.nombre
-    categoria.detalle=createCategoriaDto.detalle
-    return await this.categoriaRepository.save(categoria)
-  }
-
-  create(createCategoriaDto: CreateCategoriaDto) {
-    return 'this action adds a new categoria';
-  }
-
   private baseUrl = environment.urlServidor
   private http=inject(HttpClient)
 
@@ -30,6 +17,10 @@ export class CategoriaService {
 
   funGuardar (registro: any){
     return this.http.post(`${this.baseUrl}/categoria`,registro)
+  }
+
+  funModificar (id: number, registro:any){
+    return this.http.patch(`${this.baseUrl}/categoria/$(id)`)
   }
 
 
